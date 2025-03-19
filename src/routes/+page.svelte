@@ -101,8 +101,8 @@
 <div class="absolute top-1/3 text-center px-4 sm:px-6 w-full max-w-[90%] mx-auto">
   <h1 class="text-3xl sm:text-5xl font-semibold text-black">HEY, I’M JAMAL NAGA</h1>
   <h2 class="mt-4 text-2xl sm:text-4xl font-bold text-black leading-snug">
-    I aspire to be a <span class="text-blue-600">Network</span> and
-    <span class="text-blue-600">Software Engineer</span>,
+    I aspire to be a <span class="text" style="color: #2563EB;">Network</span> and
+    <span class="text" style="color: #2563EB;">Software Engineer</span>,
     and this is my portfolio.
   </h2>
   <p class="text-center mt-4 text-lg sm:text-2xl font-semibold text-black">
@@ -270,11 +270,7 @@
 <!-- About Me Section -->
 <section id="about" class="w-full min-h-screen bg-[#F1FBFE] flex flex-col items-center px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
   <h2 class="text-3xl sm:text-5xl font-bold text-black" data-aos="fade-down" data-aos-duration="1200">ABOUT ME</h2>
-  <div
-  class="w-12 h-2.5 sm:w-16 sm:h-3 bg-violet-700 rounded-full mt-2"
-  data-aos="fade-down"
-  data-aos-delay="200"
-></div>
+  <div class="w-12 h-2.5 bg-violet-700 rounded-full mt-2" data-aos="fade-down" data-aos-delay="200"></div>
   <p class="text-base sm:text-lg md:text-2xl text-center max-w-3xl mt-4 px-4 sm:px-0" data-aos="fade-down" data-aos-delay="400">
     Here you will find more information about me, what I do, and my current skills mostly in terms of programming and technology.
   </p>
@@ -399,11 +395,7 @@
 <!-- Projects Section -->
 <section id="projects" class="w-full min-h-screen bg-[#EEF7FD] flex flex-col items-center px-6 pt-32 pb-16">
   <h2 class="text-5xl font-bold text-black" data-aos="fade-up" data-aos-duration="1500">PROJECTS</h2>
-  <div
-  class="w-12 h-2.5 sm:w-16 sm:h-3 bg-violet-700 rounded-full mt-2"
-  data-aos="fade-down"
-  data-aos-delay="200"
-></div>
+  <div class="w-12 h-2.5 rounded-full mt-2" style="background-color: #6D28D9;" data-aos="fade-up" data-aos-delay="200"></div>
   <p class="text-lg md:text-2xl text-center max-w-3xl mt-4" data-aos="fade-up" data-aos-delay="400">
     Here are some of the projects I've worked on. Click on them to view more.
   </p>
@@ -446,7 +438,7 @@
     CERTIFICATIONS
   </h2>
   <div
-    class="w-10 sm:w-12 h-2 sm:h-2.5 bg-violet-700 rounded-full mt-2"
+    class="w-10 sm:w-12 h-2 sm:h-2.5 rounded-full mt-2" style="background-color: #6D28D9;"
     data-aos="fade-up"
     data-aos-delay="200"
   ></div>
@@ -524,29 +516,24 @@
 </section>
 
 
-<!-- Footer -->
-<footer class="bg-black text-white py-6 sm:py-8 px-4 sm:px-6">
+<!-- Footer  -->
+<footer class="bg-black text-white py-8 px-4 sm:px-6">
   <div
     class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center"
   >
     <!-- Left Section -->
     <div class="text-center md:text-left mb-6 md:mb-0">
       <h2 class="text-lg sm:text-xl font-bold">JAMAL NAGA</h2>
-      <p
-        class="text-sm sm:text-base text-gray-400 max-w-[90%] mx-auto md:mx-0 sm:max-w-md mt-2 leading-relaxed"
-      >
-        An aspiring Frontend Web Developer exploring how to build Websites and
-        Mobile applications that contribute to the success of the overall
-        product.
+      <p class="text-sm sm:text-base text-gray-400 max-w-xs sm:max-w-md mt-2">
+        An aspiring Frontend Web Developer exploring how to build Websites and 
+        Mobile applications that contribute to the success of the overall product.
       </p>
     </div>
 
     <!-- Social Section -->
     <div class="w-full md:w-auto text-center md:text-left">
       <h2 class="text-base sm:text-lg font-bold">SOCIAL</h2>
-      <div
-        class="flex justify-center md:justify-start gap-2 sm:gap-4 mt-2 flex-wrap"
-      >
+      <div class="flex justify-center md:justify-start gap-3 sm:gap-4 mt-2">
         <a
           href="https://www.linkedin.com/in/jamal-naga-612049356/"
           target="_blank"
@@ -584,12 +571,11 @@
 
   <!-- Copyright Section (Centered Below Everything) -->
   <div class="w-full flex flex-col items-center mt-6">
-    <div class="border-t border-gray-500 w-full max-w-400 sm:max-w-md"></div>
-    <p
-      class="text-xs sm:text-sm text-gray-500 mt-2 text-center leading-tight"
-    >
-      © <script>document.write(new Date().getFullYear())</script>. Made by
+    <div class="border-t w-full max-w-xs sm:max-w-md" style="border-color: #374151;"></div>
+    <p class="text-xs sm:text-sm text-gray-500 mt-2 text-center">
+      © {new Date().getFullYear()}. Made by
       <span class="font-bold text-white">Jamal Naga</span>
     </p>
   </div>
 </footer>
+
