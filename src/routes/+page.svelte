@@ -270,7 +270,11 @@
 <!-- About Me Section -->
 <section id="about" class="w-full min-h-screen bg-[#F1FBFE] flex flex-col items-center px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
   <h2 class="text-3xl sm:text-5xl font-bold text-black" data-aos="fade-down" data-aos-duration="1200">ABOUT ME</h2>
-  <div class="w-12 h-2.5 bg-violet-700 rounded-full mt-2" data-aos="fade-down" data-aos-delay="200"></div>
+  <div
+  class="w-12 h-2.5 sm:w-16 sm:h-3 bg-violet-700 rounded-full mt-2"
+  data-aos="fade-down"
+  data-aos-delay="200"
+></div>
   <p class="text-base sm:text-lg md:text-2xl text-center max-w-3xl mt-4 px-4 sm:px-0" data-aos="fade-down" data-aos-delay="400">
     Here you will find more information about me, what I do, and my current skills mostly in terms of programming and technology.
   </p>
@@ -395,7 +399,11 @@
 <!-- Projects Section -->
 <section id="projects" class="w-full min-h-screen bg-[#EEF7FD] flex flex-col items-center px-6 pt-32 pb-16">
   <h2 class="text-5xl font-bold text-black" data-aos="fade-up" data-aos-duration="1500">PROJECTS</h2>
-  <div class="w-12 h-2.5 bg-violet-700 rounded-full mt-2" data-aos="fade-up" data-aos-delay="200"></div>
+  <div
+  class="w-12 h-2.5 sm:w-16 sm:h-3 bg-violet-700 rounded-full mt-2"
+  data-aos="fade-down"
+  data-aos-delay="200"
+></div>
   <p class="text-lg md:text-2xl text-center max-w-3xl mt-4" data-aos="fade-up" data-aos-delay="400">
     Here are some of the projects I've worked on. Click on them to view more.
   </p>
@@ -576,7 +584,7 @@
 
   <!-- Copyright Section (Centered Below Everything) -->
   <div class="w-full flex flex-col items-center mt-6">
-    <div class="border-t border-gray-700 w-full max-w-xs sm:max-w-md"></div>
+    <div class="border-t border-gray-500 w-full max-w-400 sm:max-w-md"></div>
     <p
       class="text-xs sm:text-sm text-gray-500 mt-2 text-center leading-tight"
     >
@@ -585,4 +593,3 @@
     </p>
   </div>
 </footer>
-
