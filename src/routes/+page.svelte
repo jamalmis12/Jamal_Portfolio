@@ -28,6 +28,47 @@
 
   let startIndex = 0;
   let itemsPerPage = 3; // Show 3 at a time
+  let startX = 0;
+  let isDragging = false;
+  let distanceMoved = 0;
+
+  function nextSlide() {
+    startIndex =
+      (startIndex + 1) % (certifications.length - (itemsPerPage - 1));
+  }
+
+  function prevSlide() {
+    startIndex =
+      (startIndex - 1 + (certifications.length - (itemsPerPage - 1))) %
+      (certifications.length - (itemsPerPage - 1));
+  }
+
+  function goToSlide(index) {
+    startIndex = index;
+  }
+
+  // Handle touch drag/swipe
+  function touchStart(event) {
+    startX = event.touches[0].clientX;
+    isDragging = true;
+  }
+
+  function touchMove(event) {
+    if (!isDragging) return;
+    distanceMoved = event.touches[0].clientX - startX;
+  }
+
+  function touchEnd() {
+    if (!isDragging) return;
+    if (distanceMoved < -50) {
+      nextSlide(); // Swipe left
+    } else if (distanceMoved > 50) {
+      prevSlide(); // Swipe right
+    }
+    isDragging = false;
+    distanceMoved = 0;
+  }
+  
   let menuOpen = false;
 
   // Function to toggle the mobile menu
@@ -39,13 +80,6 @@
   function closeMenu() {
     menuOpen = false;
   }
-  function nextSlide() {
-    startIndex = (startIndex + 1) % (certifications.length - (itemsPerPage - 1));
-  }
-
-  function prevSlide() {
-    startIndex = (startIndex - 1 + (certifications.length - (itemsPerPage - 1))) % (certifications.length - (itemsPerPage - 1));
-  }
 
   function openModal() {
     isModalOpen = true;
@@ -55,10 +89,6 @@
   function closeModal() {
     isModalOpen = false;
   }
-
-  function goToSlide(index) {
-  startIndex = index;
-}
 
   // Run this only after the DOM is fully loaded
   onMount(() => {
@@ -143,7 +173,6 @@
     animation: bounceLoop 1.5s infinite;
   }
 </style>
-
 
 <!-- Navigation Bar -->
 <nav
@@ -266,11 +295,10 @@
 </nav>
 </div>
 
-
 <!-- About Me Section -->
 <section id="about" class="w-full min-h-screen bg-[#F1FBFE] flex flex-col items-center px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
   <h2 class="text-3xl sm:text-5xl font-bold text-black" data-aos="fade-down" data-aos-duration="1200">ABOUT ME</h2>
-  <div class="w-12 h-2.5 bg-violet-700 rounded-full mt-2" data-aos="fade-down" data-aos-delay="200"></div>
+  <div class="w-12 h-2.5 rounded-full mt-2" style="background-color: #6D28D9" data-aos="fade-down" data-aos-delay="200"></div>
   <p class="text-base sm:text-lg md:text-2xl text-center max-w-3xl mt-4 px-4 sm:px-0" data-aos="fade-down" data-aos-delay="400">
     Here you will find more information about me, what I do, and my current skills mostly in terms of programming and technology.
   </p>
@@ -298,10 +326,10 @@
     <!-- Right Section - Skills & TechStack -->
     <div class="lg:w-1/2 flex flex-col items-start mt-12 lg:mt-0 px-4 sm:px-0" data-aos="fade-left" data-aos-easing="ease-in-out" data-aos-duration="1400">
       <h3 class="text-2xl sm:text-4xl font-bold text-black">My Skills</h3>
-      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mt-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mt-4">
         {#each ["UI/UX", "Cisco Network", "Robotics", "Web Development", "Mobile Development"] as skill, i}
           <div 
-            class="bg-gray-400 text-white px-4 py-2 rounded-md text-sm sm:text-lg text-center"
+            class="text-white px-4 py-2 rounded-md text-sm sm:text-lg text-center" style="background-color: #9CA3AF;"
             data-aos="flip-up"
             data-aos-delay={i * 200} 
             data-aos-duration="1000"
@@ -340,7 +368,6 @@
     </div>
   </div>
 </section>
-
 
 {#if isModalOpen}
   <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
@@ -391,7 +418,6 @@
   </div>
 {/if}
 
-
 <!-- Projects Section -->
 <section id="projects" class="w-full min-h-screen bg-[#EEF7FD] flex flex-col items-center px-6 pt-32 pb-16">
   <h2 class="text-5xl font-bold text-black" data-aos="fade-up" data-aos-duration="1500">PROJECTS</h2>
@@ -438,7 +464,8 @@
     CERTIFICATIONS
   </h2>
   <div
-    class="w-10 sm:w-12 h-2 sm:h-2.5 rounded-full mt-2" style="background-color: #6D28D9;"
+    class="w-10 sm:w-12 h-2 sm:h-2.5 rounded-full mt-2"
+    style="background-color: #6d28d9"
     data-aos="fade-up"
     data-aos-delay="200"
   ></div>
@@ -458,8 +485,13 @@
       &#10094;
     </button>
 
-    <!-- Carousel Window -->
-    <div class="overflow-hidden w-full max-w-5xl">
+    <!-- Carousel Window with Touch Events -->
+    <div
+      class="overflow-hidden w-full max-w-5xl"
+      on:touchstart={touchStart}
+      on:touchmove={touchMove}
+      on:touchend={touchEnd}
+    >
       <div
         class="flex transition-transform duration-500 ease-in-out"
         style="transform: translateX(-{startIndex * (100 / itemsPerPage)}%)"
@@ -514,7 +546,6 @@
     {/each}
   </div>
 </section>
-
 
 <!-- Footer  -->
 <footer class="bg-black text-white py-8 px-4 sm:px-6">
@@ -571,11 +602,10 @@
 
   <!-- Copyright Section (Centered Below Everything) -->
   <div class="w-full flex flex-col items-center mt-6">
-    <div class="border-t w-full max-w-xs sm:max-w-md" style="border-color: #374151;"></div>
+    <div class="border-t w-full max-w-xs sm:max-w-md" style="border-color: #374151"></div>
     <p class="text-xs sm:text-sm text-gray-500 mt-2 text-center">
       © {new Date().getFullYear()}. Made by
       <span class="font-bold text-white">Jamal Naga</span>
     </p>
   </div>
 </footer>
-
