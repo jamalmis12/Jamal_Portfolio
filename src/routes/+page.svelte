@@ -28,47 +28,18 @@
 
   let startIndex = 0;
   let itemsPerPage = 3; // Show 3 at a time
-  let startX = 0;
-  let isDragging = false;
-  let distanceMoved = 0;
 
   function nextSlide() {
-    startIndex =
-      (startIndex + 1) % (certifications.length - (itemsPerPage - 1));
+    startIndex = (startIndex + 1) % (certifications.length - (itemsPerPage - 1));
   }
 
   function prevSlide() {
-    startIndex =
-      (startIndex - 1 + (certifications.length - (itemsPerPage - 1))) %
-      (certifications.length - (itemsPerPage - 1));
+    startIndex = (startIndex - 1 + (certifications.length - (itemsPerPage - 1))) % (certifications.length - (itemsPerPage - 1));
   }
 
   function goToSlide(index) {
-    startIndex = index;
-  }
-
-  // Handle touch drag/swipe
-  function touchStart(event) {
-    startX = event.touches[0].clientX;
-    isDragging = true;
-  }
-
-  function touchMove(event) {
-    if (!isDragging) return;
-    distanceMoved = event.touches[0].clientX - startX;
-  }
-
-  function touchEnd() {
-    if (!isDragging) return;
-    if (distanceMoved < -50) {
-      nextSlide(); // Swipe left
-    } else if (distanceMoved > 50) {
-      prevSlide(); // Swipe right
-    }
-    isDragging = false;
-    distanceMoved = 0;
-  }
-  
+  startIndex = index;
+}
   let menuOpen = false;
 
   // Function to toggle the mobile menu
@@ -89,6 +60,8 @@
   function closeModal() {
     isModalOpen = false;
   }
+
+
 
   // Run this only after the DOM is fully loaded
   onMount(() => {
@@ -120,6 +93,7 @@
 
 </style> 
 
+
 <div
   id="home"
   class="w-full h-screen bg-white overflow-hidden relative flex flex-col items-center"
@@ -127,52 +101,87 @@
   <!-- Background Image -->
   <img class="w-full h-full absolute top-0 left-0 object-cover" src="bg.jfif" alt="Background" />
 
-<!-- Text Content -->
-<div class="absolute top-1/3 text-center px-4 sm:px-6 w-full max-w-[90%] mx-auto">
-  <h1 class="text-3xl sm:text-5xl font-semibold text-black">HEY, I’M JAMAL NAGA</h1>
-  <h2 class="mt-4 text-2xl sm:text-4xl font-bold text-black leading-snug">
-    I aspire to be a <span class="text" style="color: #2563EB;">Network</span> and
-    <span class="text" style="color: #2563EB;">Software Engineer</span>,
-    and this is my portfolio.
-  </h2>
-  <p class="text-center mt-4 text-lg sm:text-2xl font-semibold text-black">
-    Computer Engineering Student | Web Developer <br />
-    Exploring Svelte & Tailwind CSS
-  </p>
-</div>
-
-<!-- Scroll Indicator -->
-<div class="absolute bottom-14 sm:bottom-10 flex justify-center w-full">
-  <div
-    class="w-8 h-12 sm:w-11 sm:h-16 bg-white border border-3 opacity-80 border-black rounded-full flex justify-center items-center relative overflow-hidden"
-  >
-    <div
-      class="w-[4px] h-[4px] sm:w-[5px] sm:h-[5px] bg-black rounded-full animate-bounce-loop"
-    ></div>
+  <!-- Text Content -->
+  <div class="absolute top-1/3 text-center px-4 sm:px-6 w-full max-w-[90%] mx-auto">
+    <h1 class="text-3xl sm:text-5xl font-semibold text-black">HEY, I’M JAMAL NAGA</h1>
+    <h2 class="mt-4 text-2xl sm:text-4xl font-bold text-black leading-snug">
+      I aspire to be a <span id="typed-text" class="text" style="color: #2563EB;"></span>,
+      and this is my portfolio.
+    </h2>
+    <p class="text-center mt-4 text-lg sm:text-2xl font-semibold text-black">
+      Computer Engineering Student | Web Developer <br />
+      Exploring Svelte & Tailwind CSS
+    </p>
   </div>
-</div>
 
-<!-- Bounce Animation -->
-<style>
-  @keyframes bounceLoop {
-    0% {
-      transform: translateY(-10px);
-      opacity: 0;
-    }
-    50% {
-      transform: translateY(10px);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(5px);
-      opacity: 0;
-    }
-  }
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-14 sm:bottom-10 flex justify-center w-full">
+    <div
+      class="w-8 h-12 sm:w-11 sm:h-16 bg-white border border-3 opacity-80 border-black rounded-full flex justify-center items-center relative overflow-hidden"
+    >
+      <div
+        class="w-[4px] h-[4px] sm:w-[5px] sm:h-[5px] bg-black rounded-full animate-bounce-loop"
+      ></div>
+    </div>
+  </div>
 
-  .animate-bounce-loop {
-    animation: bounceLoop 1.5s infinite;
-  }
-</style>
+  <!-- Bounce Animation -->
+  <style>
+    @keyframes bounceLoop {
+      0% {
+        transform: translateY(-10px);
+        opacity: 0;
+      }
+      50% {
+        transform: translateY(10px);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(5px);
+        opacity: 0;
+      }
+    }
+
+    .animate-bounce-loop {
+      animation: bounceLoop 1.5s infinite;
+    }
+  </style>
+
+  <!-- Typing Effect -->
+  <script>
+    const typedTextElement = document.getElementById("typed-text");
+    const words = ["Network Engineer", "Software Engineer"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function typeEffect() {
+      const currentWord = words[wordIndex];
+      if (isDeleting) {
+        typedTextElement.innerHTML = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        typedTextElement.innerHTML = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      if (!isDeleting && charIndex === currentWord.length) {
+        setTimeout(() => (isDeleting = true), 1000);
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+      }
+
+      const typingSpeed = isDeleting ? 100 : 150;
+      setTimeout(typeEffect, typingSpeed);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(typeEffect, 500);
+    });
+  </script>
+
+
 
 <!-- Navigation Bar -->
 <nav
@@ -295,6 +304,7 @@
 </nav>
 </div>
 
+
 <!-- About Me Section -->
 <section id="about" class="w-full min-h-screen bg-[#F1FBFE] flex flex-col items-center px-6 pt-24 pb-12 sm:pt-32 sm:pb-16">
   <h2 class="text-3xl sm:text-5xl font-bold text-black" data-aos="fade-down" data-aos-duration="1200">ABOUT ME</h2>
@@ -329,7 +339,7 @@
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3 mt-4">
         {#each ["UI/UX", "Cisco Network", "Robotics", "Web Development", "Mobile Development"] as skill, i}
           <div 
-            class="text-white px-4 py-2 rounded-md text-sm sm:text-lg text-center" style="background-color: #9CA3AF;"
+            class="bg-gray-400 text-white px-4 py-2 rounded-md text-sm sm:text-lg text-center" style="background-color: #374151"
             data-aos="flip-up"
             data-aos-delay={i * 200} 
             data-aos-duration="1000"
@@ -368,6 +378,7 @@
     </div>
   </div>
 </section>
+
 
 {#if isModalOpen}
   <div class="fixed inset-0 flex items-center justify-center bg-black/50 z-50">
@@ -418,6 +429,7 @@
   </div>
 {/if}
 
+
 <!-- Projects Section -->
 <section id="projects" class="w-full min-h-screen bg-[#EEF7FD] flex flex-col items-center px-6 pt-32 pb-16">
   <h2 class="text-5xl font-bold text-black" data-aos="fade-up" data-aos-duration="1500">PROJECTS</h2>
@@ -464,8 +476,7 @@
     CERTIFICATIONS
   </h2>
   <div
-    class="w-10 sm:w-12 h-2 sm:h-2.5 rounded-full mt-2"
-    style="background-color: #6d28d9"
+    class="w-10 sm:w-12 h-2 sm:h-2.5 rounded-full mt-2" style="background-color: #6D28D9;"
     data-aos="fade-up"
     data-aos-delay="200"
   ></div>
@@ -485,13 +496,8 @@
       &#10094;
     </button>
 
-    <!-- Carousel Window with Touch Events -->
-    <div
-      class="overflow-hidden w-full max-w-5xl"
-      on:touchstart={touchStart}
-      on:touchmove={touchMove}
-      on:touchend={touchEnd}
-    >
+    <!-- Carousel Window -->
+    <div class="overflow-hidden w-full max-w-5xl">
       <div
         class="flex transition-transform duration-500 ease-in-out"
         style="transform: translateX(-{startIndex * (100 / itemsPerPage)}%)"
@@ -546,6 +552,7 @@
     {/each}
   </div>
 </section>
+
 
 <!-- Footer  -->
 <footer class="bg-black text-white py-8 px-4 sm:px-6">
@@ -602,7 +609,7 @@
 
   <!-- Copyright Section (Centered Below Everything) -->
   <div class="w-full flex flex-col items-center mt-6">
-    <div class="border-t w-full max-w-xs sm:max-w-md" style="border-color: #374151"></div>
+    <div class="w-full max-w-xs sm:max-w-md h-0.5 bg-[#374151]"></div>
     <p class="text-xs sm:text-sm text-gray-500 mt-2 text-center">
       © {new Date().getFullYear()}. Made by
       <span class="font-bold text-white">Jamal Naga</span>
